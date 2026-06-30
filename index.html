@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designação de Funções - Salão do Reino</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-global: #FFFFFF; 
+            --card-white: #E6E6E6;
+            --text-dark: #2C2A1E; 
+            --text-muted: #555555;
+            --input-bg: #FFFFFF; 
+            --border-color: #888888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, "Lato" , Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-global);
+            color: var(--text-dark);
+            padding: 18px 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .seletor-semana {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+            background-color: var(--card-white);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px 18px;
+        }
+
+        .seta-btn {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--text-dark);
+            padding: 0px 0px;
+            user-select: none;
+            transition: transform 0.1s ease, opacity 0.2s ease;
+        }
+
+        .seta-btn:active {
+            transform: scale(0.85);
+        }
+
+        .seta-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .semana-titulo {
+            font-family: "Lato", sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--text-dark);
+            text-align: center;
+            flex: 1;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 9px; 
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .card-funcao {
+            background-color: var(--card-white);
+            border-radius: 23px; 
+            padding: 15px 25px; 
+            box-shadow: 0 4px 15px rgba(44, 42, 30, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px; 
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 20px; 
+            font-weight: bold;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exibicao-nome {
+            width: 100%;
+            padding: 15px; 
+            background-color: var(--input-bg);
+            border-radius: 20px; 
+            font-size: 18px; 
+            color: var(--text-dark);
+            font-weight: bold;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            border: 1px solid transparent;
+        }
+
+        .exibicao-nome.vazio {
+            color: var(--text-muted);
+            font-style: italic;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="seletor-semana">
+        <button class="seta-btn" id="btn-anterior" onclick="navegar(-1)" style="display: inline-block; transform: rotate(180deg) translateY(-2px);">➜</button>
+        <div class="semana-titulo" id="label-semana">Carregando...</div>
+        <button class="seta-btn" id="btn-proxima" onclick="navegar(1)" style="display: inline-block; transform: translateY(-2px);">➜</button>
+    </div>
+    
+    <div class="cards-grid">
+        
+        <div class="card-funcao">
+            <h2 class="card-title">🎼 Áudio e Vídeo</h2>
+            <div class="exibicao-nome" id="txt-audio"></div>
+        </div>
+
+        <div class="card-funcao">
+            <h2 class="card-title">🎙️ Palco</h2>
+            <div class="exibicao-nome" id="txt-palco"></div>
+        </div>
+
+        <div class="card-funcao">
+            <h2 class="card-title">🎤 Microfone Volante</h2>
+            <div class="exibicao-nome" id="txt-v1"></div>
+            <div class="exibicao-nome" id="txt-v2"></div>
+        </div>
+
+        <div class="card-funcao">
+            <h2 class="card-title">☝🏽 Indicador Interno</h2>
+            <div class="exibicao-nome" id="txt-ind-interno"></div>
+        </div>
+
+        <div class="card-funcao">
+            <h2 class="card-title">🚪 Indicador Externo</h2>
+            <div class="exibicao-nome" id="txt-ind-externo"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const URL_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSBuS_Qe2LkVH7QEPbSvoFn50e7I71Waljbuk8b2UR1wxGkYZMoeEZUy7Moy1DF4pMfRlRsn0tyNDu4/pub?output=csv";
+
+        let bancoDeDados = [];
+        let indiceAtual = 0;
+        const idsCampos = ['audio', 'palco', 'v1', 'v2', 'ind-interno', 'ind-externo'];
+
+        async function carregarDadosDaPlanilha() {
+            try {
+                const resposta = await fetch(URL_PLANILHA);
+                const textoCSV = await resposta.text();
+                
+                const linhas = textoCSV.split(/\r?\n/);
+                if (linhas.length < 2) return;
+
+                const cabecalhos = linhas[0].split(',').map(c => c.trim().toLowerCase());
+
+                bancoDeDados = [];
+
+                for (let i = 1; i < linhas.length; i++) {
+                    if (!linhas[i]) continue;
+                    
+                    const colunas = linhas[i].split(',');
+                    let dadosSemana = {};
+
+                    cabecalhos.forEach((cabecalho, index) => {
+                        dadosSemana[cabecalho] = colunas[index] ? colunas[index].trim() : "";
+                    });
+
+                    if (dadosSemana.semana) {
+                        bancoDeDados.push(dadosSemana);
+                    }
+                }
+
+                // Descobre de forma automática qual linha corresponde à data atual do sistema
+                indiceAtual = encontrarIndiceSemanaAtual();
+
+                atualizarTela();
+
+            } catch (erro) {
+                console.error("Erro ao carregar dados...", erro);
+                document.getElementById('label-semana').innerText = "Erro ao Carregar";
+            }
+        }
+
+        // Nova inteligência de mapeamento e busca por data cronológica
+        function encontrarIndiceSemanaAtual() {
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0); // Zera o relógio para focar apenas nos dias
+            const anoAtual = hoje.getFullYear();
+            const mesAtual = hoje.getMonth();
+            
+            function mapearMes(nomeMes) {
+                const meses = {
+                    janeiro: 0, fevereiro: 1, marco: 2, março: 2, abril: 3, maio: 4, junho: 5,
+                    julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11
+                };
+                return meses[nomeMes.toLowerCase().trim()];
+            }
+
+            for (let i = 0; i < bancoDeDados.length; i++) {
+                const textoSemana = bancoDeDados[i].semana;
+                if (!textoSemana) continue;
+
+                // Separa o texto pelo hífen do intervalo
+                const partes = textoSemana.split('-');
+                if (partes.length !== 2) continue;
+
+                // Analisa a data final (Lado direito)
+                const matchFim = partes[1].match(/(\d+)\s+de\s+([a-zA-Zçáó]+)/i);
+                if (!matchFim) continue;
+                const diaFim = parseInt(matchFim[1]);
+                const mesFim = mapearMes(matchFim[2]);
+
+                // Analisa a data inicial (Lado esquerdo)
+                const matchInicio = partes[0].match(/(\d+)\s+de\s+([a-zA-Zçáó]+)/i);
+                let diaInicio, mesInicio;
+
+                if (matchInicio) {
+                    diaInicio = parseInt(matchInicio[1]);
+                    mesInicio = mapearMes(matchInicio[2]);
+                } else {
+                    // Se estiver escrito simplificado como "20 - 26 de Julho"
+                    const apenasDia = partes[0].match(/(\d+)/);
+                    if (!apenasDia) continue;
+                    diaInicio = parseInt(apenasDia[1]);
+                    mesInicio = mesFim;
+                }
+
+                if (mesInicio === undefined || mesFim === undefined) continue;
+
+                let anoInicio = anoAtual;
+                let anoFim = anoAtual;
+
+                // Regra de segurança para semanas que cruzam a virada de Dezembro para Janeiro
+                if (mesInicio === 11 && mesFim === 0) {
+                    if (mesAtual === 0) {
+                        anoInicio = anoAtual - 1;
+                    } else if (mesAtual === 11) {
+                        anoFim = anoAtual + 1;
+                    }
+                }
+
+                const dataInicio = new Date(anoInicio, mesInicio, diaInicio, 0, 0, 0);
+                const dataFim = new Date(anoFim, mesFim, diaFim, 23, 59, 59);
+
+                // Se o dia de hoje estiver no meio deste intervalo, achamos a semana correta!
+                if (hoje >= dataInicio && hoje <= dataFim) {
+                    return i; 
+                }
+            }
+            return 0; // Padrão de segurança: mostra a primeira se não achar a atual
+        }
+
+        function atualizarTela() {
+            if (bancoDeDados.length === 0) {
+                document.getElementById('label-semana').innerText = "Nenhuma escala encontrada";
+                return;
+            }
+
+            const dadosDaSemana = bancoDeDados[indiceAtual];
+
+            document.getElementById('label-semana').innerText = dadosDaSemana.semana;
+
+            idsCampos.forEach(id => {
+                const elemento = document.getElementById(`txt-${id}`);
+                const nome = dadosDaSemana[id];
+
+                if (nome && nome.trim() !== "") {
+                    elemento.innerText = nome;
+                    elemento.classList.remove('vazio');
+                } else {
+                    elemento.innerText = "Não designado";
+                    elemento.classList.add('vazio');
+                }
+            });
+
+            document.getElementById('btn-anterior').disabled = (indiceAtual === 0);
+            document.getElementById('btn-proxima').disabled = (indiceAtual === bancoDeDados.length - 1);
+        }
+
+        function navegar(direcao) {
+            const novoIndice = indiceAtual + direcao;
+            if (novoIndice >= 0 && novoIndice < bancoDeDados.length) {
+                indiceAtual = novoIndice;
+                atualizarTela();
+            }
+        }
+
+        window.onload = function() {
+            carregarDadosDaPlanilha();
+        };
+    </script>
+</body>
+</html>
