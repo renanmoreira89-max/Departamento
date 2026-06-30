@@ -46,7 +46,7 @@
             background-color: var(--card-white);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 10px 18px;
+            padding: 8px 18px;
         }
 
         .seta-btn {
@@ -58,6 +58,8 @@
             padding: 0px 0px;
             user-select: none;
             transition: transform 0.1s ease, opacity 0.2s ease;
+            outline: none;
+    -webkit-tap-highlight-color: transparent;
         }
 
         .seta-btn:active {
@@ -82,15 +84,15 @@
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 9px; 
+            gap: 10px; 
             width: 100%;
             max-width: 800px;
         }
 
         .card-funcao {
             background-color: var(--card-white);
-            border-radius: 23px; 
-            padding: 15px 25px; 
+            border-radius: 25px; 
+            padding: 14px 20px; 
             box-shadow: 0 4px 15px rgba(44, 42, 30, 0.05);
             display: flex;
             flex-direction: column;
@@ -107,14 +109,15 @@
             gap: 8px;
         }
 
+
         .exibicao-nome {
             width: 100%;
-            padding: 15px; 
+            padding: 5px 10px; 
             background-color: var(--input-bg);
             border-radius: 20px; 
             font-size: 18px; 
             color: var(--text-dark);
-            font-weight: bold;
+            font-weight: normal;
             min-height: 48px;
             display: flex;
             align-items: center;
@@ -126,10 +129,37 @@
             font-style: italic;
             font-weight: normal;
         }
+
+  "short_name": "Designações",
+  "name": "Designações Departamentos",
+  "description": "Visualização de designações para as reuniões",
+  "icons": [
+    {
+      "src": "001-checklist.png"",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "001-checklist.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#ffffff",
+  "theme_color": "#FFB700",
+  "display": "standalone",
+  "orientation": "portrait"
+}
+
     </style>
 </head>
 <body>
 
+    <link rel="manifest" href="manifest.json">
+    
     <div class="seletor-semana">
         <button class="seta-btn" id="btn-anterior" onclick="navegar(-1)" style="display: inline-block; transform: rotate(180deg) translateY(-2px);">➜</button>
         <div class="semana-titulo" id="label-semana">Carregando...</div>
