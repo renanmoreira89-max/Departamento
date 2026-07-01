@@ -1,0 +1,22 @@
+{
+  "name": "Discursos",
+  "short_name": "Discursos",
+  "description": "Aplicativo para registrar e recuperar temas de discursos",
+  "start_url": ".",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#EEEEEE",
+  "theme_color": "#4A607A",
+  "icons": [
+    {
+      "src": "speech (2).png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "speech (2).png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
