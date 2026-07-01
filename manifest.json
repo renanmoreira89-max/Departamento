@@ -1,22 +1,39 @@
 {
-  "name": "Discursos",
-  "short_name": "Discursos",
-  "description": "Aplicativo para registrar e recuperar temas de discursos",
+  "name": "Discurso Público",
+  "short_name": "Discurso",
+  "description": "Aplicativo para registrar e recuperar temas de discursos públicos",
   "start_url": ".",
   "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#EEEEEE",
   "theme_color": "#4A607A",
-  "icons": [
+  "categories": ["productivity"],
+  "screenshots": [
     {
-      "src": "speech (2).png",
+      "src": "/speech (2).png",
       "sizes": "192x192",
       "type": "image/png"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/speech (2).png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "speech (2).png",
+      "src": "/speech (2).png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/speech (2).png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
