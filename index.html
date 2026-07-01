@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Designação de Funções - Salão do Reino</title>
+    <title>Discurso Público - Salão do Reino</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,97 +11,77 @@
 
     <style>
         :root {
-            --bg-global: #FFFFFF; 
-            --card-white: #E6E6E6;
-            --text-dark: #2C2A1E; 
-            --text-muted: #555555;
-            --input-bg: #FFFFFF; 
-            --border-color: #888888;
+            --bg-global: #EEEEEE;     
+            --card-white: #FFFFFF;    
+            --text-dark: #111111;     
+            --text-muted: #65676B;    
+            --accent-blue: #4A607A;   
+            --input-bg: #F3F3F3;      
+            --border-color: #999999;  
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, "Lato" , Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, "Roboto" , Helvetica, Arial, sans-serif;
         }
 
         body {
             background-color: var(--bg-global);
             color: var(--text-dark);
-            padding: 18px 20px; 
+            padding: 16px; 
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
-        .seletor-semana {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 20px auto;
-            background-color: var(--card-white);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 8px 18px;
-        }
-
-        .seta-btn {
-            background: none;
-            border: none;
-            font-size: 30px;
-            cursor: pointer;
-            color: var(--text-dark);
-            padding: 0px 0px;
-            user-select: none;
-            transition: transform 0.1s ease, opacity 0.2s ease;
-            outline: none;
-    -webkit-tap-highlight-color: transparent;
-        }
-
-        .seta-btn:active {
-            transform: scale(0.85);
-        }
-
-        .seta-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .semana-titulo {
-            font-family: "Lato", sans-serif;
-            font-weight: 700;
-            font-size: 24px;
-            color: var(--text-dark);
+        header {
             text-align: center;
-            flex: 1;
+            margin-bottom: 20px; 
+            width: 100%;
+            max-width: 800px;
         }
+
+        header h1 {
+            font-family: "Lato", sans-serif;
+            font-weight: 900; 
+            font-style: normal;
+            font-size: 32px; 
+            letter-spacing: -0.5px;
+            color: var(--accent-blue); 
+            margin-bottom: 4px;
+        }
+
+        .lato-bold { font-family: "Lato", sans-serif; font-weight: 700; font-style: normal; } 
+        .lato-black { font-family: "Lato", sans-serif; font-weight: 900; font-style: normal; }
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 10px; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
             width: 100%;
             max-width: 800px;
         }
 
         .card-funcao {
             background-color: var(--card-white);
-            border-radius: 25px; 
-            padding: 14px 20px; 
-            box-shadow: 0 4px 15px rgba(44, 42, 30, 0.05);
+            border-radius: 22px; 
+            padding: 12px 15px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
             display: flex;
             flex-direction: column;
-            gap: 12px; 
+            gap: 9px; 
             border: 1px solid var(--border-color);
         }
 
+        .full-width {
+            grid-column: span 2;
+        }
+
         .card-title {
-            font-size: 20px; 
+            font-size: 22px; 
             font-weight: bold;
             color: var(--text-dark);
             display: flex;
@@ -109,245 +89,262 @@
             gap: 8px;
         }
 
-
-        .exibicao-nome {
+        .input-designado {
             width: 100%;
-            padding: 5px 10px; 
+            padding: 8px 12px; 
             background-color: var(--input-bg);
-            border-radius: 20px; 
-            font-size: 18px; 
+            border: 2px solid transparent;
+            border-radius: 16px; 
+            font-size: 20px; 
             color: var(--text-dark);
-            font-weight: normal;
-            min-height: 48px;
-            display: flex;
-            align-items: center;
-            border: 1px solid transparent;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s ease;
         }
 
-        .exibicao-nome.vazio {
+        .input-designado:focus {
+            background-color: var(--card-white);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(74, 96, 122, 0.15);
+        }
+
+        .input-designado::placeholder {
             color: var(--text-muted);
-            font-style: italic;
             font-weight: normal;
+            font-style: italic;
+            font-size: 16px;
         }
 
-  "short_name": "Designações",
-  "name": "Designações Departamentos",
-  "description": "Visualização de designações para as reuniões",
-  "icons": [
-    {
-      "src": "001-checklist.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any"
-    },
-    {
-      "src": "001-checklist.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
-    }
-  ],
-  "start_url": ".",
-  "background_color": "#ffffff",
-  "theme_color": "#FFB700",
-  "display": "standalone",
-  "orientation": "portrait"
-}
+        textarea.input-designado {
+            resize: none; 
+            overflow-y: hidden;
+            display: block;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
 
+        #input-esboco, #input-cantico, #input-tema {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-    <link rel="manifest" href="manifest.json">
-    
-    <div class="seletor-semana">
-        <button class="seta-btn" id="btn-anterior" onclick="navegar(-1)" style="display: inline-block; transform: rotate(180deg) translateY(-2px);">➜</button>
-        <div class="semana-titulo" id="label-semana">Carregando...</div>
-        <button class="seta-btn" id="btn-proxima" onclick="navegar(1)" style="display: inline-block; transform: translateY(-2px);">➜</button>
-    </div>
+    <header>
+        <h1>DISCURSO PÚBLICO</h1>
+    </header>
     
     <div class="cards-grid">
         
         <div class="card-funcao">
-            <h2 class="card-title">🎼 Áudio e Vídeo</h2>
-            <div class="exibicao-nome" id="txt-audio"></div>
+            <h2 class="card-title">📝 Esboço</h2>
+            <!-- Vinculado à função de busca automática ao digitar -->
+            <input type="text" class="input-designado" id="input-esboco" placeholder="Nº do esboço..." oninput="salvarDados('esboco'); buscarTemaPorEsboco(this.value)">
         </div>
 
         <div class="card-funcao">
-            <h2 class="card-title">🎙️ Palco</h2>
-            <div class="exibicao-nome" id="txt-palco"></div>
+            <h2 class="card-title">🎶 Cântico</h2>
+            <input type="text" class="input-designado" id="input-cantico" placeholder="Nº do cântico..." oninput="salvarDados('cantico')">
         </div>
 
-        <div class="card-funcao">
-            <h2 class="card-title">🎤 Microfone Volante</h2>
-            <div class="exibicao-nome" id="txt-v1"></div>
-            <div class="exibicao-nome" id="txt-v2"></div>
+        <div class="card-funcao full-width">
+            <h2 class="card-title">📖 Tema</h2>
+            <textarea rows="1" class="input-designado" style="font-size: 24px;" id="input-tema" placeholder="Título do discurso..." oninput="salvarDados('tema'); ajustarAltura(this)"></textarea>
         </div>
 
-        <div class="card-funcao">
-            <h2 class="card-title">☝🏽 Indicador Interno</h2>
-            <div class="exibicao-nome" id="txt-ind-interno"></div>
+        <div class="card-funcao full-width">
+            <h2 class="card-title">🗣️ Orador</h2>
+            <input type="text" class="input-designado" id="input-orador" placeholder="Nome do irmão..." oninput="salvarDados('orador')">
         </div>
 
-        <div class="card-funcao">
-            <h2 class="card-title">🚪 Indicador Externo</h2>
-            <div class="exibicao-nome" id="txt-ind-externo"></div>
+        <div class="card-funcao full-width">
+            <h2 class="card-title">🏡 Congregação</h2>
+            <input type="text" class="input-designado" id="input-congregacao" placeholder="Nome da congregação..." oninput="salvarDados('congregacao')">
         </div>
 
     </div>
 
     <script>
-        const URL_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSBuS_Qe2LkVH7QEPbSvoFn50e7I71Waljbuk8b2UR1wxGkYZMoeEZUy7Moy1DF4pMfRlRsn0tyNDu4/pub?output=csv";
+        // BANCO DE DADOS DE TEMAS DE DISCURSOS
+        const listaTemas = {
+            "1": "Você conhece bem a Deus?",
+            "2": "Você vai sobreviver aos últimos dias?",
+            "3": "Você está avançando com a organização unida de Jeová?",
+            "4": "Que provas temos de que Deus existe?",
+            "5": "Você pode ter uma família feliz!",
+            "6": "O Dilúvio dos dias de Noé e você",
+            "7": "Imite a misericórdia de Jeová",
+            "8": "Viva para fazer a vontade de Deus",
+            "9": "Escute e faça o que a Bíblia diz",
+            "10": "Seja honesto em tudo",
+            "11": "Imite a Jesus e não faça parte do mundo",
+            "12": "Deus quer que você respeite quem tem autoridade",
+            "13": "Qual o ponto de vista de Deus sobre o sexo e o casamento?",
+            "14": "Um povo puro e limpo honra a Jeová",
+            "15": "‘Faça o bem a todos’",
+            "16": "Seja cada vez mais amigo de Jeová",
+            "17": "Glorifique a Deus com tudo o que você tem",
+            "18": "Faça de Jeová a sua fortaleza",
+            "19": "Como você pode saber seu futuro?",
+            "20": "Chegou o tempo de Deus governar o mundo?",
+            "21": "Dê valor ao seu lugar no Reino de Deus",
+            "22": "Você está usando bem o que Jeová lhe dá?",
+            "23": "A vida tem objetivo",
+            "24": "Você encontrou “uma pérola de grande valor”?",
+            "25": "Lute contra o espírito do mundo",
+            "26": "Você é importante para Deus?",
+            "27": "Como construir um casamento feliz",
+            "28": "Mostre respeito e amor no seu casamento",
+            "29": "As responsabilidades e recompensas de ter filhos",
+            "30": "Como melhorar a comunicação na família",
+            "31": "Você tem consciência da sua necessidade espiritual?",
+            "32": "Como lidar com as ansiedades da vida",
+            "33": "Quando vai existir verdadeira justiça?",
+            "34": "Você vai ser marcado para sobreviver?",
+            "35": "É possível viver para sempre? O que você precisa fazer?",
+            "36": "Será que a vida é só isso?",
+            "37": "Obedecer a Deus é mesmo a melhor coisa a fazer?",
+            "38": "Como você pode sobreviver ao fim do mundo?",
+            "39": "Jesus Cristo vence o mundo — Como e quando?",
+            "40": "O que vai acontecer em breve?",
+            "41": "Fiquem parados e vejam como Jeová os salvará",
+            "42": "O amor pode vencer o ódio?",
+            "43": "Tudo o que Deus nos pede é para o nosso bem",
+            "44": "Como os ensinos de Jesus podem ajudar você?",
+            "45": "Continue andando no caminho que leva à vida",
+            "46": "Fortaleça sua confiança em Jeová",
+            "47": "‘Tenha fé novas’",
+            "48": "Seja leal a Deus mesmo quando for testado",
+            "49": "Será que um dia a Terra vai ser limpa?",
+            "50": "Como sempre tomar as melhores decisões",
+            "51": "Será que a verdade da Bíblia está mudando a sua vida?",
+            "52": "Quem é o seu Deus?",
+            "53": "Você pensa como Deus?",
+            "54": "Fortaleça sua fé em Deus e em suas promessas",
+            "55": "Você está fazendo um bom nome perante Deus?",
+            "56": "Existe um líder em quem você pode confiar?",
+            "58": "Quem são os verdadeiros seguidores de Cristo?",
+            "60": "Você tem um objetivo na vida?",
+            "61": "Nas promessas de quem você confia?",
+            "62": "Onde encontrar uma esperança real para o futuro?",
+            "63": "É possível encontrar a verdade?",
+            "64": "Você ama os prazeres ou a Deus?",
+            "65": "Como podemos ser pacíficos num mundo cheio de ódio",
+            "66": "Você também vai participar na colheita?",
+            "67": "Medite na Bíblia e nas criações de Jeová",
+            "68": "‘Continuem a perdoar uns aos outros liberalmente’",
+            "69": "Por que mostrar amor abnegado?",
+            "70": "Por que Deus merece sua confiança?",
+            "71": "‘Mantenha-se desperto’ — Por que e como?",
+            "72": "O amor identifica os cristãos verdadeiros",
+            "73": "Você tem “um coração sábio”?",
+            "74": "Os olhos de Jeová estão em todo lugar",
+            "75": "Mostre que você apoia o direito de Jeová governar",
+            "76": "Princípios bíblicos — Podem nos ajudar a lidar com os problemas atuais?",
+            "77": "“Sempre mostrem hospitalidade”",
+            "78": "Sirva a Jeová com um coração alegre",
+            "79": "Você vai escolher ser amigo de Deus?",
+            "80": "Você baseia sua esperança na ciência ou na Bíblia?",
+            "81": "Quem está qualificado para fazer discípulos?",
+            "83": "Será que os cristãos precisam obedecer aos Dez Mandamentos?",
+            "86": "Como orar a Deus e ser ouvido por ele?",
+            "88": "Por que viver de acordo com os padrões da Bíblia?",
+            "89": "Quem tem sede da verdade, venha!",
+            "90": "Faça o máximo para alcançar a verdadeira vida!",
+            "93": "Desastres naturais — Quando vão acabar?",
+            "95": "Não seja enganado pelo ocultismo!",
+            "96": "O que vai acontecer com as religiões?",
+            "98": "“A cena deste mundo está mudando”",
+            "99": "Por que podemos confiar no que a Bíblia diz?",
+            "100": "Como fazer amizades fortes e verdadeiras",
+            "101": "Jeová é o “Grandioso Criador”",
+            "102": "Preste atenção à “palavra profética”",
+            "103": "Como você pode ter a verdadeira alegria?",
+            "104": "Pais, vocês estão construindo com materiais à prova de fogo?",
+            "107": "Você está treinando bem a sua consciência?",
+            "108": "Você pode encarar o futuro com confiança!",
+            "111": "É possível que a humanidade seja completamente curada?",
+            "112": "Como mostrar amor num mundo egoísta",
+            "113": "Jovens — Como vocês podem ter uma vida feliz?",
+            "115": "Não caia nas armadilhas de Satanás",
+            "121": "Uma família mundial que será salva da destruição",
+            "129": "O que a Bíblia diz sobre a Trindade?",
+            "131": "Tome posição contra o Diabo!",
+            "132": "Ressurreição — A vitória sobre a morte!",
+            "134": "Será que os cristãos precisam guardar o sábado?",
+            "140": "Quem é realmente Jesus Cristo?",
+            "147": "Confie que Jeová tem o power para nos salvar",
+            "150": "Este mundo está condenado à destruição?",
+            "153": "Tenha bem em mente o “atemorizante dia”!",
+            "160": "Mantenha a identidade cristã!",
+            "162": "Seja liberto deste mundo em escuridão",
+            "166": "Verdadeira fé — O que é e como mostrar",
+            "169": "Por que ser orientado pela Bíblia?",
+            "170": "Quem está qualificado para governar a humanidade?",
+            "171": "Poderá viver em paz agora — E para sempre!",
+            "172": "Que reputação você tem perante Deus?",
+            "173": "Existe uma religião verdadeira do ponto de vista de Deus?",
+            "174": "Quem se qualificará para entrar no novo mundo de Deus?",
+            "175": "O que prova que a Bíblia é autêntica?",
+            "176": "Quando haverá verdadeira paz e segurança?",
+            "177": "Onde encontrar ajuda em tempos de aflição?",
+            "178": "Ande no caminho da integridade",
+            "179": "Rejeite as fantasias do mundo, empenhe-se pelas realidades do Reino",
+            "180": "A ressurreição — Por que essa esperança deve ser real para você",
+            "181": "Já é mais tarde do que você imagina?",
+            "182": "O que o Reino de Deus está fazendo por nós agora?",
+            "183": "Desvie seus olhos do que é fútil",
+            "184": "A morte é o fim de tudo?",
+            "185": "Será que a verdade influencia sua vida?",
+            "186": "Sirva em união com o povo feliz de Deus",
+            "187": "Por que um Deus amoroso permite a maldade?",
+            "188": "Você confia em Jeová?",
+            "189": "Ande com Deus e receba bênçãos para sempre",
+            "190": "Como se cumprirá a promessa de perfeita felicidade familiar",
+            "191": "Como o amor e a fé vencem o mundo",
+            "192": "Você está no caminho para a vida eterna?",
+            "193": "Os problemas de hoje logo serão coisa do passado",
+            "194": "Como a sabedoria de Deus nos ajuda"
+        };
 
-        let bancoDeDados = [];
-        let indiceAtual = 0;
-        const idsCampos = ['audio', 'palco', 'v1', 'v2', 'ind-interno', 'ind-externo'];
+        function salvarDados(id) {
+            const valor = document.getElementById(`input-${id}`).value;
+            localStorage.setItem(`discurso-${id}`, valor);
+        }
 
-        async function carregarDadosDaPlanilha() {
-            try {
-                const resposta = await fetch(URL_PLANILHA);
-                const textoCSV = await resposta.text();
-                
-                const linhas = textoCSV.split(/\r?\n/);
-                if (linhas.length < 2) return;
+        // Função que encontra o tema e autocompensa a célula
+        function buscarTemaPorEsboco(numero) {
+            const numeroLimpo = numero.trim();
+            const campoTema = document.getElementById('input-tema');
 
-                const cabecalhos = linhas[0].split(',').map(c => c.trim().toLowerCase());
+            if (listaTemas[numeroLimpo]) {
+                campoTema.value = listaTemas[numeroLimpo];
+                salvarDados('tema');
+                ajustarAltura(campoTema);
+            }
+        }
 
-                bancoDeDados = [];
+        function ajustarAltura(elemento) {
+            elemento.style.height = 'auto'; 
+            elemento.style.height = (elemento.scrollHeight + 4) + 'px'; 
+        }
 
-                for (let i = 1; i < linhas.length; i++) {
-                    if (!linhas[i]) continue;
+        function carregarDados() {
+            const ids = ['esboco', 'cantico', 'tema', 'orador', 'congregacao'];
+            ids.forEach(id => {
+                const salvo = localStorage.getItem(`discurso-${id}`);
+                if (salvo) {
+                    const elemento = document.getElementById(`input-${id}`);
+                    elemento.value = salvo;
                     
-                    const colunas = linhas[i].split(',');
-                    let dadosSemana = {};
-
-                    cabecalhos.forEach((cabecalho, index) => {
-                        dadosSemana[cabecalho] = colunas[index] ? colunas[index].trim() : "";
-                    });
-
-                    if (dadosSemana.semana) {
-                        bancoDeDados.push(dadosSemana);
+                    if (id === 'tema') {
+                        ajustarAltura(elemento);
                     }
-                }
-
-                // Descobre de forma automática qual linha corresponde à data atual do sistema
-                indiceAtual = encontrarIndiceSemanaAtual();
-
-                atualizarTela();
-
-            } catch (erro) {
-                console.error("Erro ao carregar dados...", erro);
-                document.getElementById('label-semana').innerText = "Erro ao Carregar";
-            }
-        }
-
-        // Nova inteligência de mapeamento e busca por data cronológica
-        function encontrarIndiceSemanaAtual() {
-            const hoje = new Date();
-            hoje.setHours(0, 0, 0, 0); // Zera o relógio para focar apenas nos dias
-            const anoAtual = hoje.getFullYear();
-            const mesAtual = hoje.getMonth();
-            
-            function mapearMes(nomeMes) {
-                const meses = {
-                    janeiro: 0, fevereiro: 1, marco: 2, março: 2, abril: 3, maio: 4, junho: 5,
-                    julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11
-                };
-                return meses[nomeMes.toLowerCase().trim()];
-            }
-
-            for (let i = 0; i < bancoDeDados.length; i++) {
-                const textoSemana = bancoDeDados[i].semana;
-                if (!textoSemana) continue;
-
-                // Separa o texto pelo hífen do intervalo
-                const partes = textoSemana.split('-');
-                if (partes.length !== 2) continue;
-
-                // Analisa a data final (Lado direito)
-                const matchFim = partes[1].match(/(\d+)\s+de\s+([a-zA-Zçáó]+)/i);
-                if (!matchFim) continue;
-                const diaFim = parseInt(matchFim[1]);
-                const mesFim = mapearMes(matchFim[2]);
-
-                // Analisa a data inicial (Lado esquerdo)
-                const matchInicio = partes[0].match(/(\d+)\s+de\s+([a-zA-Zçáó]+)/i);
-                let diaInicio, mesInicio;
-
-                if (matchInicio) {
-                    diaInicio = parseInt(matchInicio[1]);
-                    mesInicio = mapearMes(matchInicio[2]);
-                } else {
-                    // Se estiver escrito simplificado como "20 - 26 de Julho"
-                    const apenasDia = partes[0].match(/(\d+)/);
-                    if (!apenasDia) continue;
-                    diaInicio = parseInt(apenasDia[1]);
-                    mesInicio = mesFim;
-                }
-
-                if (mesInicio === undefined || mesFim === undefined) continue;
-
-                let anoInicio = anoAtual;
-                let anoFim = anoAtual;
-
-                // Regra de segurança para semanas que cruzam a virada de Dezembro para Janeiro
-                if (mesInicio === 11 && mesFim === 0) {
-                    if (mesAtual === 0) {
-                        anoInicio = anoAtual - 1;
-                    } else if (mesAtual === 11) {
-                        anoFim = anoAtual + 1;
-                    }
-                }
-
-                const dataInicio = new Date(anoInicio, mesInicio, diaInicio, 0, 0, 0);
-                const dataFim = new Date(anoFim, mesFim, diaFim, 23, 59, 59);
-
-                // Se o dia de hoje estiver no meio deste intervalo, achamos a semana correta!
-                if (hoje >= dataInicio && hoje <= dataFim) {
-                    return i; 
-                }
-            }
-            return 0; // Padrão de segurança: mostra a primeira se não achar a atual
-        }
-
-        function atualizarTela() {
-            if (bancoDeDados.length === 0) {
-                document.getElementById('label-semana').innerText = "Nenhuma escala encontrada";
-                return;
-            }
-
-            const dadosDaSemana = bancoDeDados[indiceAtual];
-
-            document.getElementById('label-semana').innerText = dadosDaSemana.semana;
-
-            idsCampos.forEach(id => {
-                const elemento = document.getElementById(`txt-${id}`);
-                const nome = dadosDaSemana[id];
-
-                if (nome && nome.trim() !== "") {
-                    elemento.innerText = nome;
-                    elemento.classList.remove('vazio');
-                } else {
-                    elemento.innerText = "Não designado";
-                    elemento.classList.add('vazio');
                 }
             });
-
-            document.getElementById('btn-anterior').disabled = (indiceAtual === 0);
-            document.getElementById('btn-proxima').disabled = (indiceAtual === bancoDeDados.length - 1);
         }
 
-        function navegar(direcao) {
-            const novoIndice = indiceAtual + direcao;
-            if (novoIndice >= 0 && novoIndice < bancoDeDados.length) {
-                indiceAtual = novoIndice;
-                atualizarTela();
-            }
-        }
-
-        window.onload = function() {
-            carregarDadosDaPlanilha();
-        };
+        window.onload = carregarDados;
     </script>
 </body>
 </html>
